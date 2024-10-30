@@ -144,12 +144,12 @@ data_merged.columns = [
     "gyr_x",
     "gyr_y",
     "gyr_z",
+    "participant",
     "label",
     "category",
-    "participant",
     "set",
 ]
-
+data_merged['category'] = data_merged['category'].replace({'heavy3': 'heavy', 'medium3': 'medium'})
 # --------------------------------------------------------------
 # Resample data (frequency conversion)
 # --------------------------------------------------------------
@@ -164,9 +164,9 @@ sampling = {
     "gyr_x": "mean",
     "gyr_y": "mean",
     "gyr_z": "mean",
+    "participant": "last",
     "label": "last",
     "category": "last",
-    "participant": "last",
     "set": "last",
 }
 
@@ -185,5 +185,5 @@ data_resampled["set"] = data_resampled["set"].astype(int)
 # --------------------------------------------------------------
 # Export dataset
 # --------------------------------------------------------------
-
+data_resampled["category"].unique()
 data_resampled.to_pickle("../../data/interim/01_data_processed.pkl")
