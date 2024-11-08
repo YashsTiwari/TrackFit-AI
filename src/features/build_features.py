@@ -216,8 +216,8 @@ plt.legend()
 plt.show()
 
 # Plot accelerometer data to compare
-fig= plt.figure(figsize=(15, 15))
-ax=fig.add_subplot(projection="3d")
+fig = plt.figure(figsize=(15, 15))
+ax = fig.add_subplot(projection="3d")
 for l in df_cluster["label"].unique():
     subset = df_cluster[df_cluster["label"] == l]
     ax.scatter(subset["acc_x"], subset["acc_y"], subset["acc_z"], label=l)
@@ -231,4 +231,4 @@ plt.show()
 # Export dataset
 # --------------------------------------------------------------
 
-df_cluster.to_pickle('../../data/interim/03_data_features.pkl')
+df_cluster.to_pickle("../../data/interim/03_data_features.pkl")
