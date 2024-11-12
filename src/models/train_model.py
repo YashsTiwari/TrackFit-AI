@@ -16,9 +16,7 @@ plt.rcParams["lines.linewidth"] = 2
 
 df = pd.read_pickle("../../data/interim/03_data_features.pkl")
 
-# --------------------------------------------------------------
 # Create a training and test set
-# --------------------------------------------------------------
 
 df_train = df.drop(["participant", "category", "set"], axis=1)
 
@@ -37,9 +35,7 @@ y_test.value_counts().plot(kind="bar", ax=ax, color="royalblue", label="Train")
 plt.legend()
 plt.show()
 
-# --------------------------------------------------------------
 # Split feature subsets
-# --------------------------------------------------------------
 
 basic_features = ["acc_x", "acc_y", "acc_z", "gyr_x", "gyr_y", "gyr_z"]
 square_features = ["acc_r", "gyr_r"]
@@ -60,9 +56,7 @@ feature_set_2 = list(set(basic_features + square_features + pca_features))
 feature_set_3 = list(set(feature_set_2 + time_features))
 feature_set_4 = list(set(feature_set_3 + freq_features + cluster_features))
 
-# --------------------------------------------------------------
 # Perform forward feature selection using simple decision tree
-# --------------------------------------------------------------
 
 learner = ClassificationAlgorithms()
 
@@ -70,7 +64,6 @@ max_features = 10
 selected_features, ordered_features, ordered_scores = learner.forward_selection(
     max_features, X_train, y_train
 )
-
 selected_features = [
     "gyr_r_freq_0.0_Hz_ws_14",
     "duration",
@@ -90,9 +83,7 @@ plt.ylabel("Accuracy")
 plt.xticks(np.arange(1, max_features + 1, 1))
 plt.show()
 
-# --------------------------------------------------------------
 # Grid search for best hyperparameters and model selection
-# --------------------------------------------------------------
 
 possible_feature_sets = [
     feature_set_1,
@@ -202,9 +193,7 @@ for i, f in zip(range(len(possible_feature_sets)), feature_names):
     )
     score_df = pd.concat([score_df, new_scores])
 
-# --------------------------------------------------------------
 # Create a grouped bar plot to compare the results
-# --------------------------------------------------------------
 
 score_df.sort_values(by="accuracy", ascending=False)
 
@@ -216,9 +205,7 @@ plt.ylim(0.7, 1)
 plt.legend(loc="lower right")
 plt.show()
 
-# --------------------------------------------------------------
 # Select best model and evaluate results
-# --------------------------------------------------------------
 
 (
     class_train_y,
@@ -258,9 +245,7 @@ plt.grid(False)
 plt.show()
 
 
-# --------------------------------------------------------------
 # Select train and test data based on participant
-# --------------------------------------------------------------
 
 participant_df = df.drop(["set", "category"], axis=1)
 
@@ -282,9 +267,7 @@ y_test.value_counts().plot(kind="bar", ax=ax, color="royalblue", label="Test")
 plt.legend()
 plt.show()
 
-# --------------------------------------------------------------
 # Use best model again and evaluate results
-# --------------------------------------------------------------
 
 (
     class_train_y,
@@ -323,10 +306,7 @@ plt.xlabel("Predicted label")
 plt.grid(False)
 plt.show()
 
-# --------------------------------------------------------------
 # Try a complex model with the selected features
-# --------------------------------------------------------------
-
 
 selected_features = [
     "gyr_r_freq_0.0_Hz_ws_14",
