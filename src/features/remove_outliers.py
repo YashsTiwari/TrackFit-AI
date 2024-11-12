@@ -5,17 +5,13 @@ import math
 import scipy
 from sklearn.neighbors import LocalOutlierFactor  # pip install scikit-learn
 
-# --------------------------------------------------------------
 # Load data
-# --------------------------------------------------------------
 
 df = pd.read_pickle("../../data/interim/01_data_processed.pkl")
 
 outlier_columns = list(df.columns[:6])
 
-# --------------------------------------------------------------
 # Plotting outliers
-# --------------------------------------------------------------
 
 plt.style.use("fivethirtyeight")
 plt.rcParams["figure.figsize"] = (20, 5)
@@ -73,13 +69,8 @@ def plot_binary_outliers(dataset, col, outlier_col, reset_index):
     )
     plt.show()
 
-
-# --------------------------------------------------------------
 # Interquartile range (distribution based)
-# --------------------------------------------------------------
-
-# Insert IQR function
-
+# IQR function
 
 def mark_outliers_iqr(dataset, col):
     """Function to mark values as outliers using the IQR method.
@@ -119,9 +110,9 @@ for col in outlier_columns:
     dataset = mark_outliers_iqr(df, col)
     plot_binary_outliers(dataset, col, col + "_outlier", reset_index=True)
 
-# --------------------------------------------------------------
+
 # Chauvenets criteron (distribution based)
-# --------------------------------------------------------------
+
 
 # Check for normal distribution
 df[outlier_columns[:3] + ["label"]].plot.hist(
@@ -131,8 +122,7 @@ df[outlier_columns[3:] + ["label"]].plot.hist(
     by="label", figsize=(20, 20), layout=(3, 3)
 )
 
-
-# Insert Chauvenet's function
+# Chauvenet's function
 def mark_outliers_chauvenet(dataset, col, C=2):
     """Finds outliers in the specified column of datatable and adds a binary column with
     the same name extended with '_outlier' that expresses the result per data point.
@@ -177,18 +167,14 @@ def mark_outliers_chauvenet(dataset, col, C=2):
     dataset[col + "_outlier"] = mask
     return dataset
 
-
 # Loop over all columns
 for col in outlier_columns:
     dataset = mark_outliers_chauvenet(df, col)
     plot_binary_outliers(dataset, col, col + "_outlier", reset_index=True)
 
-# --------------------------------------------------------------
 # Local outlier factor (distance based)
-# --------------------------------------------------------------
 
-
-# Insert LOF function
+# LOF function
 def mark_outliers_lof(dataset, columns, n=20):
     """Mark values as outliers using LOF
 
@@ -212,16 +198,13 @@ def mark_outliers_lof(dataset, columns, n=20):
     dataset["outlier_lof"] = outliers == -1
     return dataset, outliers, X_scores
 
-
 # Loop over all columns
 
 dataset, outliers, X_scores = mark_outliers_lof(df, outlier_columns)
 for col in outlier_columns:
     plot_binary_outliers(dataset, col, "outlier_lof", reset_index=True)
 
-# --------------------------------------------------------------
 # Check outliers grouped by label
-# --------------------------------------------------------------
 
 label = "bench"
 for col in outlier_columns:
@@ -238,13 +221,9 @@ dataset, outliers, X_scores = mark_outliers_lof(
 for col in outlier_columns:
     plot_binary_outliers(dataset, col, "outlier_lof", reset_index=True)
 
-# --------------------------------------------------------------
 # Choose method and deal with outliers
-# --------------------------------------------------------------
 
 # Test on single column
-
-
 # Create a loop
 outliers_removed_df = df.copy()
 for cols in outlier_columns:
@@ -259,9 +238,6 @@ for cols in outlier_columns:
 
 outliers_removed_df.info()
 
-
-# --------------------------------------------------------------
 # Export new dataframe
-# --------------------------------------------------------------
 
 outliers_removed_df.to_pickle("../../data/interim/02_outliers_removed_chauvenets.pkl")
