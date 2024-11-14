@@ -171,6 +171,10 @@ Repetition counting is calibrated against known repetitions, providing accurate 
 4. **Advanced Real-time Feedback and Personalized Insights**  
    Implement reinforcement learning to adjust exercise feedback based on user form, fatigue, and progress. Track user history and provide personalized recommendations.
 
+## **Want to Contribute?**
+
+Contributions are wholeheartedly welcomed! To get started, fork this repository, make your changes, and submit a pull request. Let’s build a better fitness tracking experience together.
+
 ## **License**
 
 Distributed under the MIT License. See `LICENSE` for more information.
