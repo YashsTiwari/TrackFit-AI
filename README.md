@@ -54,34 +54,49 @@ This project can be integrated with wearables(any smart watch), enabling users t
 
 ```
 ├── LICENSE
-├── Makefile           <- Commands for automated project actions, e.g., `make data`, `make train`.
+├── environment.yml    <- Contains dependencies required to run the code correctly.
 ├── README.md          <- Overview and usage of the project for developers and users.
 ├── data
 │   ├── external       <- Third-party data sources.
 │   ├── interim        <- Intermediate, transformed datasets.
+│   │   └── 01_data_processed.pkl
+│   │   └── 02_outliers_removed_chauvenets.pkl
+│   │   └── 03_data_features.pkl
 │   ├── processed      <- Final, model-ready datasets.
 │   └── raw            <- Original, unmodified data.
-│
-├── models             <- Serialized models, predictions, and summaries.
-│
-├── references         <- Data dictionaries and reference materials.
+│       └── MetaMotion
+│       └── MetaMotion.zip
+|
+├── extras             <- Pictures for Readme File
 │
 ├── reports            <- Analysis reports in HTML, PDF, or LaTeX.
 │   └── figures        <- Generated figures for reporting.
 │
 ├── requirements.txt   <- Python package dependencies.
 │
-├── setup.py           <- Makes the project pip-installable as a Python module.
 ├── src                <- Source code organized by functionality.
 │   ├── data           <- Scripts for dataset generation and processing.
 │   │   └── make_dataset.py
+│   │   
 │   ├── features       <- Scripts to engineer and transform features.
 │   │   └── build_features.py
+│   │   └── count_repetitions.py
+│   │   └── DataTransformation.py
+│   │   └── FrequencyAbstraction.py
+│   │   └── remove_outliers.py
+│   │   └── TemporalAbstraction.py
+│   │   
 │   ├── models         <- Scripts for model training and prediction.
-│   │   ├── predict_model.py
+│   │   └── __init__.py
 │   │   └── train_model.py
+│   │   └── LearningAlgorithms.py
+│   │   
 │   └── visualization  <- Scripts to generate visualizations.
-│       └── visualize.py
+│   │   └── plot_settings.py
+│   │   └── visualize.py
+│   │   
+│   ├── models         <- Scripts for model training and prediction.
+│   └── __init__.py    
 ```
 
 ## **Installation**
