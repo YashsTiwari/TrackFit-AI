@@ -53,7 +53,7 @@ This project can be integrated with wearables(any smart watch), enabling users t
 ## **Project Structure**
 
 ```
-├── LICENSE
+|
 ├── environment.yml    <- Contains dependencies required to run the code correctly.
 ├── README.md          <- Overview and usage of the project for developers and users.
 ├── data
@@ -96,7 +96,9 @@ This project can be integrated with wearables(any smart watch), enabling users t
 │   │   └── visualize.py
 │   │   
 │   ├── models         <- Scripts for model training and prediction.
-│   └── __init__.py    
+│   └── __init__.py
+|
+├── LICENSE
 ```
 
 ## **Installation**
